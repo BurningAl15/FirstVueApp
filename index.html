@@ -9,11 +9,21 @@
     <div class="nav-bar"></div>
     <div id="app">
 
-      
-      <product :premium="premium" @add-to-cart="updateCartPos" @take-from-cart="updateCartNeg"></product>
-      <div class="cart">
-        <p class="cart-element">Cart({{cart.length}})</>
-      </div></div>
+        
+        <div class="cart">
+            <p class="cart-element">Cart({{cart.length}})</>
+        </div>
+    </div>
+    
+    <div>
+        <h2>Reviews</h2>
+        <p>There are no reviews yet.</p>
+        <ul>
+            <li v-form="review in reviews">{{review}}</li>
+        </ul>
+    </div>
+
+    <product :premium="premium" @add-to-cart="updateCartPos" @take-from-cart="updateCartNeg"></product>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="main.js"></script>
   </body>
