@@ -131,7 +131,7 @@ Vue.component("product", {
       details: ["80% cotton", "20% polyester", "Gender-neutral"],
       variants: [
         {
-          variantId: 2234,
+          variantId: 2232,
           variantColor: "Green",
           variantImage:
             "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
