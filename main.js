@@ -163,12 +163,11 @@ Vue.component("product", {
           size: "XXL"
         }
       ],
-      reviews:[]
+      reviews: []
     };
   },
   methods: {
     addToCart: function() {
-      //   this.cart += 1;
       this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
     },
     updateProduct: function(index) {
@@ -181,8 +180,8 @@ Vue.component("product", {
         this.variants[this.selectedVariant].variantId
       );
     },
-    addReview(productReview){
-        this.reviews.push(productReview);
+    addReview(productReview) {
+      this.reviews.push(productReview);
     }
   },
   computed: {
