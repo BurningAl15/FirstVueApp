@@ -33,26 +33,29 @@ var app = new Vue({
   el: "#app",
   data: {
     product: "Socks",
-    image:
-      "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
+    brand: "Vue Mastery",
+    selectedVariant: 0,
+    onSale: true,
     description:
       "This product mantains your feet hot and confee, has an extra bonus, helps you to learn faster about vue js",
     url: "https://www.vuemastery.com/courses/intro-to-vue-js/attribute-binding",
     inventory: 8,
-    inStock: true,
+    // inStock: true,
     details: ["80% cotton", "20% polyester", "Gender-neutral"],
     variants: [
       {
         variantId: 2234,
         variantColor: "Green",
         variantImage:
-          "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg"
+          "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
+        variantQuantity: 5
       },
       {
         variantId: 2235,
         variantColor: "Blue",
         variantImage:
-          "https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg"
+          "https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg",
+        variantQuantity: 0
       }
     ],
     sizes: [
@@ -73,18 +76,29 @@ var app = new Vue({
         size: "XXL"
       }
     ],
-    cart: 0,
-
+    cart: 0
   },
   methods: {
     addToCart: function() {
       this.cart += 1;
     },
-    updateProduct: function(_variantImage) {
-      this.image = _variantImage;
+    updateProduct: function(index) {
+      this.selectedVariant = index;
+      console.log(index);
     },
     takeFromCart: function() {
       if (this.cart > 0) this.cart -= 1;
+    }
+  },
+  computed: {
+    title() {
+      return this.onSale ? this.brand + " " + this.product : "";
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage;
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity;
     }
   }
 });

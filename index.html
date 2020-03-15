@@ -14,7 +14,7 @@
           <img v-bind:src="image" />
         </div>
         <div class="product-info">
-          <h1>{{product}}</h1>
+          <h1>{{title}}</h1>
           <h2>{{description}}</h2>
           <!-- v-if, v-else-if, v-else -->
           <!-- <p v-if="inStock">In Stock</p> -->
@@ -22,11 +22,11 @@
           <p v-else-if="inventory <= 10 && inventory>0">Almost sold out!</p>
           <p v-else>Out of Stock</p> -->
 
-          <p v-if="inStock">In Stock</p>
+          <p v-if="inStock">In Stock {{inStock}}</p>
           <p :class="{outStock:!inStock}" v-else>Out of Stock</p>
 
           <!-- v-show -->
-          <p v-show="inStock">We Got!</p>
+          <p v-show="onSale">We Got!</p>
 
           <a :href="url">Vuy it here!</a>
           <div class="properties">
@@ -42,11 +42,11 @@
             <div>
               <h2>Colors</h2>
               <div
-                v-for="variant in variants"
-                :key="variant.variantId"
                 class="center color-box"
+                v-for="(variant, index) in variants"
+                :key="variant.variantId"
                 :style="{backgroundColor: variant.variantColor}"
-                @mouseover="updateProduct(variant.variantImage)"
+                @mouseover="updateProduct(index)"
               >
               </div>
             </div>
