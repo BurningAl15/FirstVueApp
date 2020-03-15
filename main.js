@@ -107,9 +107,7 @@ Vue.component("product", {
             </button>
           </div>
         </div>
-        <div class="cart">
-          <p class="cart-element">Cart({{cart}})</>
-        </div>
+       
       </div>
     </div>
   </div>
@@ -160,20 +158,23 @@ Vue.component("product", {
           sizeId: 3,
           size: "XXL"
         }
-      ],
-      cart: 0
+      ]
     };
   },
   methods: {
     addToCart: function() {
-      this.cart += 1;
+      //   this.cart += 1;
+      this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
     },
     updateProduct: function(index) {
       this.selectedVariant = index;
       console.log(index);
     },
     takeFromCart: function() {
-      if (this.cart > 0) this.cart -= 1;
+      this.$emit(
+        "take-from-cart",
+        this.variants[this.selectedVariant].variantId
+      );
     }
   },
   computed: {
@@ -213,24 +214,33 @@ Vue.component("product-details", {
 });
 
 Vue.component("product-sizes", {
-    props: {
-      sizes: {
-        type: String,
-        required: true
-      }
-    },
-    template: `
+  props: {
+    sizes: {
+      type: String,
+      required: true
+    }
+  },
+  template: `
     <div>
       <h2>Sizes:</h2>
       <ul>
           <li v-for="size in sizes" :key="size.sizeId">{{size.size}}</li>
       </ul>
     </div>`
-  });
+});
 
 var app = new Vue({
   el: "#app",
   data: {
-    premium: true
+    premium: true,
+    cart: []
+  },
+  methods: {
+    updateCartPos(id) {
+      this.cart.push(id);
+    },
+    updateCartNeg(id) {
+      if (this.cart.length > 0) this.cart.pop(id);
+    }
   }
 });
