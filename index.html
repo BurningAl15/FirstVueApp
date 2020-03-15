@@ -29,6 +29,26 @@
           <p v-show="inStock">We Got!</p>
 
           <a :href="url">Vuy it here!</a>
+
+          <div>
+            <h2>Details:</h2>
+            <ul>
+              <li v-for="detail in details">{{detail}}</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Colors</h2>
+            <div v-for="variant in variants" :key="variant.variantId">
+              <p>{{variant.variantColor}}</p>
+            </div>
+          </div>
+
+          <div>
+            <h2>Sizes</h2>
+            <div v-for="size in sizes" :key="size.sizeId">
+              <p>{{size.size}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
