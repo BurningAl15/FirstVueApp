@@ -40,7 +40,6 @@ var app = new Vue({
     url: "https://www.vuemastery.com/courses/intro-to-vue-js/attribute-binding",
     inventory: 8,
     inStock: true,
-    onSale: true,
     details: ["80% cotton", "20% polyester", "Gender-neutral"],
     variants: [
       {
@@ -74,7 +73,8 @@ var app = new Vue({
         size: "XXL"
       }
     ],
-    cart: 0
+    cart: 0,
+
   },
   methods: {
     addToCart: function() {

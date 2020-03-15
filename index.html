@@ -22,8 +22,8 @@
           <p v-else-if="inventory <= 10 && inventory>0">Almost sold out!</p>
           <p v-else>Out of Stock</p> -->
 
-          <p v-if="onSale">In Stock</p>
-          <p v-else>Out of Stock</p>
+          <p v-if="inStock">In Stock</p>
+          <p :class="{outStock:!inStock}" v-else>Out of Stock</p>
 
           <!-- v-show -->
           <p v-show="inStock">We Got!</p>
@@ -42,13 +42,12 @@
             <div>
               <h2>Colors</h2>
               <div
-                class="center"
                 v-for="variant in variants"
                 :key="variant.variantId"
+                class="center color-box"
+                :style="{backgroundColor: variant.variantColor}"
+                @mouseover="updateProduct(variant.variantImage)"
               >
-                <p @mouseover="updateProduct(variant.variantImage)">
-                  {{variant.variantColor}}
-                </p>
               </div>
             </div>
 
@@ -64,11 +63,16 @@
           <div class="properties">
             <div>
               <div>
-                <button v-on:click="addToCart">Add to Cart</button>
+                <button v-on:click="addToCart"
+                 :disabled="!inStock"
+                 :class="{disabledButton:!inStock}">Add to Cart</button>
               </div>
 
               <div>
-                <button class="redButton" v-on:click="takeFromCart">
+                <button
+                v-on:click="takeFromCart"
+                :disabled="!inStock"
+                :class="{disabledButton:!inStock,redButton:inStock}">
                   Take from Cart
                 </button>
               </div>

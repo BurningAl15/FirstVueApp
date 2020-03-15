@@ -37,6 +37,7 @@ img {
   width: 40px;
   height: 40px;
   margin-top: 5px;
+  border-radius: 50%;
 }
 
 .cart {
@@ -92,6 +93,10 @@ textarea {
 .activeTab {
   color: #16c0b0;
   text-decoration: underline;
+}
+
+.outStock {
+  text-decoration: line-through;
 }
 
 .properties {
