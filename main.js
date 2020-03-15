@@ -114,7 +114,20 @@ Vue.component("product", {
     </div>
 
     <product-review @review-submitted="addReview"></product-review>
-  </div>
+  
+    <div>
+    <h2>Reviews</h2>
+    <p v-if="!reviews.length">There are no reviews yet.</p>
+    <ul>
+      <li v-for="review in reviews">
+      <p>{{ review.name }}</p>
+      <p>Rating: {{ review.rating }}</p>
+      <p>Recommend: {{ review.recommend }}</p>
+      <p>{{ review.review }}</p>
+      </li>
+    </ul>
+   </div>
+    </div>
     `,
   data() {
     return {
@@ -131,7 +144,7 @@ Vue.component("product", {
       details: ["80% cotton", "20% polyester", "Gender-neutral"],
       variants: [
         {
-          variantId: 2234,
+          variantId: 2232,
           variantColor: "Green",
           variantImage:
             "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg",
@@ -168,6 +181,7 @@ Vue.component("product", {
   },
   methods: {
     addToCart: function() {
+      //   this.cart += 1;
       this.$emit("add-to-cart", this.variants[this.selectedVariant].variantId);
     },
     updateProduct: function(index) {
@@ -239,7 +253,15 @@ Vue.component("product-sizes", {
 Vue.component("product-review", {
   template: `
   <form class="review-form" @submit.prevent="onSubmit">
-    <p>
+
+  <p v-if="errors.length">
+  <b>Please correct the following error(s):</b>
+  <ul>
+    <li v-for="error in errors">{{ error }}</li>
+  </ul>
+</p>
+
+  <p>
     <label for="name">Name: </label>
     <input id="name" v-model="name">
     </p>
@@ -259,6 +281,14 @@ Vue.component("product-review", {
     </p>
 
     <p>
+      <label for="recommend">Would you recommend this product?</label><br>
+      <input style="margin: 5px;padding:0;max-width:20%;" type="radio" id="yes" name="recommend" value="yes" v-model="recommend">
+      <label style="margin: auto;" for="yes">Yes</label><br>
+      <input style="margin: 5px;padding:0;max-width:20%;" type="radio" id="no" name="recommend" value="no" v-model="recommend">
+      <label style="margin: auto;" for="no">No</label><br>
+    </p>
+
+    <p>
         <input type="submit" value="Submit">
     </p>
 
@@ -268,19 +298,31 @@ Vue.component("product-review", {
     return {
       name: null,
       review: null,
-      rating: null
+      rating: null,
+      recommend: null,
+      errors: []
     };
   },
   methods: {
     onSubmit() {
-      let productReview = {
-        name: this.name,
-        review: this.review,
-        rating: this.rating
-      };
-      this.name = null;
-      this.review = null;
-      this.rating = null;
+      if (this.name && this.review && this.rating && this.recommend) {
+        let productReview = {
+          name: this.name,
+          review: this.review,
+          rating: this.rating,
+          recommend: this.recommend
+        };
+        this.$emit("review-submitted", productReview);
+        this.name = null;
+        this.review = null;
+        this.rating = null;
+        this.recommend = null;
+      } else {
+        if (!this.name) this.errors.push("Name required.");
+        if (!this.review) this.errors.push("Review required.");
+        if (!this.rating) this.errors.push("Rating required.");
+        if (!this.recommend) this.errors.push("Recommendation required");
+      }
     }
   }
 });
