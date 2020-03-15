@@ -18,8 +18,11 @@
           <h2>{{description}}</h2>
           <!-- v-if, v-else-if, v-else -->
           <!-- <p v-if="inStock">In Stock</p> -->
-          <p v-if="inventory > 10">In Stock</p>
+          <!-- <p v-if="inventory > 10">In Stock</p>
           <p v-else-if="inventory <= 10 && inventory>0">Almost sold out!</p>
+          <p v-else>Out of Stock</p> -->
+
+          <p v-if="onSale">In Stock</p>
           <p v-else>Out of Stock</p>
 
           <!-- v-show -->

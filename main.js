@@ -24,8 +24,8 @@ var app = new Vue({
     description:
       "This product mantains your feet hot and confee, has an extra bonus, helps you to learn faster about vue js",
     url: "https://www.vuemastery.com/courses/intro-to-vue-js/attribute-binding",
-    // inStock:true
     inventory: 8,
-    inStock: true
+    inStock: true,
+    onSale:true
   }
 });
