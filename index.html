@@ -29,24 +29,52 @@
           <p v-show="inStock">We Got!</p>
 
           <a :href="url">Vuy it here!</a>
+          <div class="properties">
+            <!-- Details -->
+            <div>
+              <h2>Details:</h2>
+              <ul>
+                <li v-for="detail in details">{{detail}}</li>
+              </ul>
+            </div>
 
-          <div>
-            <h2>Details:</h2>
-            <ul>
-              <li v-for="detail in details">{{detail}}</li>
-            </ul>
-          </div>
-          <div>
-            <h2>Colors</h2>
-            <div v-for="variant in variants" :key="variant.variantId">
-              <p>{{variant.variantColor}}</p>
+            <!-- Colors -->
+            <div>
+              <h2>Colors</h2>
+              <div
+                class="center"
+                v-for="variant in variants"
+                :key="variant.variantId"
+              >
+                <p @mouseover="updateProduct(variant.variantImage)">
+                  {{variant.variantColor}}
+                </p>
+              </div>
+            </div>
+
+            <!-- Sizes -->
+            <div>
+              <h2>Sizes</h2>
+              <div class="center" v-for="size in sizes" :key="size.sizeId">
+                <p>{{size.size}}</p>
+              </div>
             </div>
           </div>
 
-          <div>
-            <h2>Sizes</h2>
-            <div v-for="size in sizes" :key="size.sizeId">
-              <p>{{size.size}}</p>
+          <div class="properties">
+            <div>
+              <div>
+                <button v-on:click="addToCart">Add to Cart</button>
+              </div>
+
+              <div>
+                <button class="redButton" v-on:click="takeFromCart">
+                  Take from Cart
+                </button>
+              </div>
+            </div>
+            <div class="cart">
+              <p class="cart-element">Cart({{cart}})</>
             </div>
           </div>
         </div>

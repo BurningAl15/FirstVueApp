@@ -19,6 +19,16 @@ Examples:
 //detail is the alias of the elements that were iterating on as we loop in the collection
 //we use this alias to render every element in the list
 
+//v-on -> shortcut @
+//can handle events
+/*Example
+<button @click="addToCart">Add to Cart</button>
+<div @mouseover="updateProduct">Color</div>
+<form @submit="addToCart">...</form>
+<input @keyup.enter="send">
+
+*/
+
 var app = new Vue({
   el: "#app",
   data: {
@@ -35,11 +45,15 @@ var app = new Vue({
     variants: [
       {
         variantId: 2234,
-        variantColor: "Green"
+        variantColor: "Green",
+        variantImage:
+          "https://www.vuemastery.com/images/challenges/vmSocks-green-onWhite.jpg"
       },
       {
         variantId: 2235,
-        variantColor: "Blue"
+        variantColor: "Blue",
+        variantImage:
+          "https://www.vuemastery.com/images/challenges/vmSocks-blue-onWhite.jpg"
       }
     ],
     sizes: [
@@ -59,6 +73,18 @@ var app = new Vue({
         sizeId: 3,
         size: "XXL"
       }
-    ]
+    ],
+    cart: 0
+  },
+  methods: {
+    addToCart: function() {
+      this.cart += 1;
+    },
+    updateProduct: function(_variantImage) {
+      this.image = _variantImage;
+    },
+    takeFromCart: function() {
+      if (this.cart > 0) this.cart -= 1;
+    }
   }
 });
